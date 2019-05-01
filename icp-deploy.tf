@@ -98,7 +98,7 @@ icp_configuration = {
   cluster_lb_address              = "${aws_lb.icp-console.dns_name}"
   cluster_CA_domain               = "${var.user_provided_cert_dns != "" ? var.user_provided_cert_dns : aws_lb.icp-console.dns_name}"
   cluster_name                    = "${var.instance_name}-${random_id.clusterid.hex}-cluster"
-  calico_ip_autodetection_method  = "interface=eth0"
+  calico_ip_autodetection_method  = "interface=eth.*,ens.*"
   kubelet_nodename                = "fqdn"
 ${var.use_aws_cloudprovider ? "
   cloud_provider                  = \"aws\"" : "" }
