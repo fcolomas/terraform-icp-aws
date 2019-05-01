@@ -97,11 +97,17 @@ ${awscli} s3 cp s3://${s3_config_bucket}/terraform.tfvars terraform-module-icp-d
 # write the additional icp config file for merging
 ${awscli} s3 cp s3://${s3_config_bucket}/icp-terraform-config.yaml terraform-module-icp-deploy/icp-terraform-config.yaml
 
+logmsg "Running docker icp-deploy with terraform light initialization"
 docker run -v `pwd`:/deploy -w=/deploy/terraform-module-icp-deploy hashicorp/terraform:light init
+logmsg "Running docker icp-deploy with terraform light apply"
 docker run -v `pwd`:/deploy -w=/deploy/terraform-module-icp-deploy hashicorp/terraform:light apply -auto-approve
 
 # backup the config
 logmsg "Backing up the config to the S3 bucket."
 ${awscli} s3 sync /opt/ibm/cluster s3://${s3_config_bucket}
+
+# backup the log file
+logmsg "Backing up the log to the S3 bucket."
+${awscli} s3 cp /tmp/icp_logs/ s3://${s3_config_bucket}/logs/${hostname}/ --recursive
 
 logmsg "~~~~~~~~ Completed ICP installation Code ~~~~~~~~"
