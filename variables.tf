@@ -10,6 +10,16 @@ variable "azs" {
   default = ["a", "b", "c"]
 }
 
+variable "aws_secret_key"{
+  default = " "
+  description = "The AWS Secret Key for the account"
+}
+
+variable "aws_access_key"{
+  default = " "
+  description = "The AWS Access Key for the account"
+}
+
 ####### AWS Deployment Details ####################################
 # SSH Key
 variable "key_name" {
@@ -60,7 +70,6 @@ variable "private_domain" { default = "icp-cluster.icp" }
 
 variable "ami" { default = "" }
 
-# EC2 instances
 # no bastion host by default.  set to 1 if you want to debug
 variable "bastion" {
   type = "map"
@@ -76,7 +85,7 @@ variable "master" {
   type = "map"
   default = {
     nodes     = "3"
-    type      = "m4.2xlarge"
+    type      = "m5.2xlarge"
     ami       = "" // Leave blank to let terraform search for Ubuntu 16.04 ami. NOT RECOMMENDED FOR PRODUCTION
     disk      = "300" //GB
     docker_vol = "100" // GB
@@ -87,7 +96,7 @@ variable "proxy" {
   type = "map"
   default = {
     nodes     = "3"
-    type      = "m4.xlarge"
+    type      = "m5.xlarge"
     ami       = "" // Leave blank to let terraform search for Ubuntu 16.04 ami. NOT RECOMMENDED FOR PRODUCTION
     disk      = "150" //GB
     docker_vol = "100" // GB
@@ -99,7 +108,7 @@ variable "management" {
   type = "map"
   default = {
     nodes     = "3"
-    type      = "m4.2xlarge"
+    type      = "m5.2xlarge"
     ami       = "" // Leave blank to let terraform search for Ubuntu 16.04 ami. NOT RECOMMENDED FOR PRODUCTION
     disk      = "300" //GB
     docker_vol = "100" // GB
@@ -111,7 +120,7 @@ variable "worker" {
   type = "map"
   default = {
     nodes     = "3"
-    type      = "m4.2xlarge"
+    type      = "m5.2xlarge"
     ami       = "" // Leave blank to let terraform search for Ubuntu 16.04 ami. NOT RECOMMENDED FOR PRODUCTION
     disk      = "150" //GB
     docker_vol = "100" // GB
@@ -123,7 +132,7 @@ variable "va" {
   type = "map"
   default = {
     nodes     = "3"
-    type      = "m4.2xlarge"
+    type      = "m5.2xlarge"
     ami       = "" // Leave blank to let terraform search for Ubuntu 16.04 ami. NOT RECOMMENDED FOR PRODUCTION
     disk      = "300" //GB
     docker_vol = "100" // GB
